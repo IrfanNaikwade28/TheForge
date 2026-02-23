@@ -1,4 +1,5 @@
 import React from "react";
+import { AnimatedSection, SectionHeading } from "./AnimatedSection";
 
 const reasons = [
   {
@@ -62,41 +63,34 @@ export default function WhyUs() {
     <section id="about" className="bg-[#0F0F0F] py-20 md:py-28">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section header */}
-        <div className="mb-14">
-          <span className="text-[#F04A1D] text-sm font-semibold uppercase tracking-[0.2em]">
-            Why Train Here
-          </span>
-          <h2
-            className="text-4xl sm:text-5xl md:text-6xl font-black uppercase text-white mt-2 leading-none"
-            style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-          >
+        <AnimatedSection className="mb-14">
+          <SectionHeading label="Why Train Here">
             Built for People Who
             <br />
             <span className="text-[#F04A1D]">Take It Seriously.</span>
-          </h2>
-          <p className="text-[#B8B8B8] text-base sm:text-lg mt-4 max-w-xl">
+          </SectionHeading>
+          <p className="text-[#B8B8B8] text-base sm:text-lg mt-6 max-w-xl">
             The Forge isn't just another gym in Kasba Bawda. It's a proper training facility — clean, well-equipped, and run by people who genuinely care about your progress.
           </p>
-        </div>
+        </AnimatedSection>
 
-        {/* Grid */}
+        {/* Grid — staggered cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {reasons.map((item, i) => (
-            <div
-              key={i}
-              className="bg-[#1A1A1A] rounded-xl p-6 border border-white/5 hover:border-[#F04A1D]/30 transition-colors duration-300 group"
-            >
-              <div className="text-[#F04A1D] mb-4 group-hover:scale-110 transition-transform duration-200 inline-block">
-                {item.icon}
+            <AnimatedSection key={i} delay={i * 80}>
+              <div className="bg-[#1A1A1A] rounded-xl p-6 border border-white/5 hover:border-[#F04A1D]/30 hover:-translate-y-1 hover:shadow-lg hover:shadow-[#F04A1D]/5 transition-all duration-300 group h-full">
+                <div className="text-[#F04A1D] mb-4 group-hover:scale-110 transition-transform duration-200 inline-block">
+                  {item.icon}
+                </div>
+                <h3
+                  className="text-white text-xl font-bold uppercase mb-2"
+                  style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                >
+                  {item.title}
+                </h3>
+                <p className="text-[#B8B8B8] text-sm leading-relaxed">{item.desc}</p>
               </div>
-              <h3
-                className="text-white text-xl font-bold uppercase mb-2"
-                style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-              >
-                {item.title}
-              </h3>
-              <p className="text-[#B8B8B8] text-sm leading-relaxed">{item.desc}</p>
-            </div>
+            </AnimatedSection>
           ))}
         </div>
       </div>

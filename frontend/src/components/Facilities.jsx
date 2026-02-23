@@ -1,4 +1,5 @@
 import React from "react";
+import { AnimatedSection, SectionHeading } from "./AnimatedSection";
 
 const facilities = [
   {
@@ -89,43 +90,36 @@ export default function Facilities() {
     <section id="facilities" className="bg-[#1A1A1A] py-20 md:py-28">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Header */}
-        <div className="mb-14">
-          <span className="text-[#F04A1D] text-sm font-semibold uppercase tracking-[0.2em]">
-            What We Offer
-          </span>
-          <h2
-            className="text-4xl sm:text-5xl md:text-6xl font-black uppercase text-white mt-2 leading-none"
-            style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-          >
+        <AnimatedSection className="mb-14">
+          <SectionHeading label="What We Offer">
             Everything You Need
             <br />
             <span className="text-[#F04A1D]">Under One Roof.</span>
-          </h2>
-          <p className="text-[#B8B8B8] text-base sm:text-lg mt-4 max-w-xl">
+          </SectionHeading>
+          <p className="text-[#B8B8B8] text-base sm:text-lg mt-6 max-w-xl">
             From the first set to post-workout recovery — The Forge has the facilities to support your entire routine, every day.
           </p>
-        </div>
+        </AnimatedSection>
 
-        {/* Grid */}
+        {/* Grid — staggered */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {facilities.map((item, i) => (
-            <div
-              key={i}
-              className="flex items-start gap-4 bg-[#0F0F0F] border border-white/5 hover:border-[#F04A1D]/40 rounded-xl p-5 transition-colors duration-300 group"
-            >
-              <div className="shrink-0 w-11 h-11 rounded-lg bg-[#F04A1D]/10 flex items-center justify-center text-[#F04A1D] group-hover:bg-[#F04A1D] group-hover:text-white transition-colors duration-300">
-                {item.icon}
+            <AnimatedSection key={i} delay={i * 60}>
+              <div className="flex items-start gap-4 bg-[#0F0F0F] border border-white/5 hover:border-[#F04A1D]/40 hover:-translate-y-1 hover:shadow-lg hover:shadow-black/30 rounded-xl p-5 transition-all duration-300 group h-full">
+                <div className="shrink-0 w-11 h-11 rounded-lg bg-[#F04A1D]/10 flex items-center justify-center text-[#F04A1D] group-hover:bg-[#F04A1D] group-hover:text-white transition-all duration-300">
+                  {item.icon}
+                </div>
+                <div>
+                  <h3
+                    className="text-white font-bold uppercase text-base mb-1"
+                    style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                  >
+                    {item.label}
+                  </h3>
+                  <p className="text-[#B8B8B8] text-sm leading-relaxed">{item.desc}</p>
+                </div>
               </div>
-              <div>
-                <h3
-                  className="text-white font-bold uppercase text-base mb-1"
-                  style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-                >
-                  {item.label}
-                </h3>
-                <p className="text-[#B8B8B8] text-sm leading-relaxed">{item.desc}</p>
-              </div>
-            </div>
+            </AnimatedSection>
           ))}
         </div>
       </div>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { AnimatedSection, SectionHeading } from "./AnimatedSection";
 
 const reviews = [
   {
@@ -57,26 +58,16 @@ function StarRating({ count }) {
 }
 
 export default function Reviews() {
-  const [active, setActive] = useState(0);
-
   return (
     <section id="reviews" className="bg-[#1A1A1A] py-20 md:py-28">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Header */}
-        <div className="mb-14 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
-          <div>
-            <span className="text-[#F04A1D] text-sm font-semibold uppercase tracking-[0.2em]">
-              Real Members
-            </span>
-            <h2
-              className="text-4xl sm:text-5xl md:text-6xl font-black uppercase text-white mt-2 leading-none"
-              style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-            >
-              What Kasba Bawda
-              <br />
-              <span className="text-[#F04A1D]">Is Saying.</span>
-            </h2>
-          </div>
+        <AnimatedSection className="mb-14 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
+          <SectionHeading label="Real Members">
+            What Kasba Bawda
+            <br />
+            <span className="text-[#F04A1D]">Is Saying.</span>
+          </SectionHeading>
           {/* Rating block */}
           <div className="flex items-center gap-4 bg-[#0F0F0F] border border-white/10 rounded-xl px-6 py-4 shrink-0">
             <div>
@@ -95,48 +86,62 @@ export default function Reviews() {
               <p className="text-[#B8B8B8] text-xs">Verified reviews</p>
             </div>
           </div>
-        </div>
+        </AnimatedSection>
 
-        {/* Review Cards — desktop grid, mobile slider feel */}
+        {/* Review Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {reviews.map((review, i) => (
-            <div
-              key={i}
-              className="bg-[#0F0F0F] border border-white/5 hover:border-[#F04A1D]/30 rounded-xl p-6 flex flex-col gap-4 transition-colors duration-300"
-            >
-              {/* Top row */}
-              <div className="flex items-start justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-[#F04A1D]/15 flex items-center justify-center">
-                    <span
-                      className="text-[#F04A1D] font-black text-base"
-                      style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-                    >
-                      {review.name.charAt(0)}
-                    </span>
+            <AnimatedSection key={i} delay={i * 100}>
+              <div
+                className="bg-[#0F0F0F] border border-white/5 rounded-xl p-6 flex flex-col gap-4 h-full"
+                style={{
+                  transition: "border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease",
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.transform = "translateY(-4px)";
+                  e.currentTarget.style.boxShadow = "0 12px 32px rgba(240,74,29,0.12)";
+                  e.currentTarget.style.borderColor = "rgba(240,74,29,0.3)";
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.transform = "translateY(0px)";
+                  e.currentTarget.style.boxShadow = "none";
+                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.05)";
+                }}
+              >
+                {/* Top row */}
+                <div className="flex items-start justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-[#F04A1D]/15 flex items-center justify-center">
+                      <span
+                        className="text-[#F04A1D] font-black text-base"
+                        style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                      >
+                        {review.name.charAt(0)}
+                      </span>
+                    </div>
+                    <div>
+                      <p className="text-white font-semibold text-sm">{review.name}</p>
+                      <StarRating count={review.rating} />
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-white font-semibold text-sm">{review.name}</p>
-                    <StarRating count={review.rating} />
-                  </div>
+                  <span className="text-xs font-semibold uppercase tracking-wide text-[#F04A1D] bg-[#F04A1D]/10 rounded-full px-2.5 py-0.5">
+                    {review.tag}
+                  </span>
                 </div>
-                <span className="text-xs font-semibold uppercase tracking-wide text-[#F04A1D] bg-[#F04A1D]/10 rounded-full px-2.5 py-0.5">
-                  {review.tag}
-                </span>
+
+                {/* Quote mark */}
+                <svg className="w-6 h-6 text-[#F04A1D]/30" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                </svg>
+
+                <p className="text-[#B8B8B8] text-sm leading-relaxed flex-1">{review.text}</p>
               </div>
-
-              {/* Quote mark */}
-              <svg className="w-6 h-6 text-[#F04A1D]/30" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-              </svg>
-
-              <p className="text-[#B8B8B8] text-sm leading-relaxed flex-1">{review.text}</p>
-            </div>
+            </AnimatedSection>
           ))}
         </div>
 
         {/* Google review CTA */}
-        <div className="text-center mt-10">
+        <AnimatedSection delay={200} className="text-center mt-10">
           <p className="text-[#B8B8B8] text-sm">
             Read all 220+ reviews on{" "}
             <a
@@ -148,7 +153,7 @@ export default function Reviews() {
               Google Maps →
             </a>
           </p>
-        </div>
+        </AnimatedSection>
       </div>
     </section>
   );
